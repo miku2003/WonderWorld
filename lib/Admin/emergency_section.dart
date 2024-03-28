@@ -9,11 +9,10 @@ class EmergencySection extends StatefulWidget {
 }
 
 class _EmergencySectionState extends State<EmergencySection> {
-  final _form = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 245, 213, 213),
+      backgroundColor: const Color.fromARGB(255, 245, 213, 213),
       body: SafeArea(
         child: Column(
           children: [
@@ -63,6 +62,7 @@ class _EmergencySectionState extends State<EmergencySection> {
                 }
 
                 final loadedData = chatSnapshot.data!.docs;
+                // ignore: avoid_print
                 print(
                     "...................................................................................${loadedData.length}");
 
@@ -107,7 +107,7 @@ class _EmergencySectionState extends State<EmergencySection> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 16),
+                                    padding: const EdgeInsets.symmetric(vertical: 16),
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -116,7 +116,7 @@ class _EmergencySectionState extends State<EmergencySection> {
                                       children: [
                                         Text(
                                           currentData["name"],
-                                          style: TextStyle(fontSize: 30),
+                                          style: const TextStyle(fontSize: 30),
                                         ),
                                         Text(currentData["description"]),
                                         const SizedBox(
@@ -142,11 +142,11 @@ class _EmergencySectionState extends State<EmergencySection> {
                                           255, 85, 178, 105),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Text(
                                         currentData["last-place"],
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),

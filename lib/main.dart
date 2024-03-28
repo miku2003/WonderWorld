@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:wonderworld/Admin/adm_home.dart';
 import 'package:wonderworld/firebase_options.dart';
 import 'package:wonderworld/sign_in_page.dart';
 
