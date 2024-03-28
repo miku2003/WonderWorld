@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wonderworld/Admin/adm_home.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -56,6 +57,12 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
     setState(() {
       isAuthenticating = false;
     });
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (ctx) => const AdminHomeScreen(),
+      ),
+    );
   }
 
   @override
@@ -141,20 +148,19 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                       child: TextFormField(
                         obscureText: isObsecured,
                         decoration: InputDecoration(
-                          
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: GestureDetector(
-                          onTap: () => setState(() {
-                            isObsecured = !isObsecured;
-                          }),
-                          child: Icon(
-                            isObsecured
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            size: 18,
-                            color: Colors.grey,
+                            onTap: () => setState(() {
+                              isObsecured = !isObsecured;
+                            }),
+                            child: Icon(
+                              isObsecured
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              size: 18,
+                              color: Colors.grey,
+                            ),
                           ),
-                        ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
@@ -173,8 +179,7 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                           _enteredPassword = value!;
                         },
                         validator: (value) {
-                          if (value == null ||
-                              value.trim().isEmpty) {
+                          if (value == null || value.trim().isEmpty) {
                             return "Enter a password";
                           }
                           return null;
@@ -193,7 +198,6 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: _submit,
-                       
                         style: ButtonStyle(
                           shadowColor: MaterialStateProperty.all(Colors.grey),
                           backgroundColor: MaterialStateProperty.all(
