@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 
 final _firebase = FirebaseAuth.instance;
 
-class EventScheduling extends StatefulWidget {
-  const EventScheduling({super.key});
+class Test extends StatefulWidget {
+  Test({super.key});
 
   @override
-  State<EventScheduling> createState() => _EventSchedulingState();
+  State<Test> createState() => _TestState();
 }
 
-class _EventSchedulingState extends State<EventScheduling> {
+class _TestState extends State<Test> {
   final _form = GlobalKey<FormState>();
-  var eventName = "";
-  var eventTime = "";
-  var place = "";
-  var ticketPrice = "";
-  var eventDescription = "";
+  var name = "";
+  var age = "";
+  var lastPlace = "";
+  var contactNumber = "";
+  var description = "";
   var _isAuthenticating = false;
 
   void _submit() async {
@@ -33,12 +33,12 @@ class _EventSchedulingState extends State<EventScheduling> {
 
     _form.currentState!.save();
 
-    await FirebaseFirestore.instance.collection("events").doc().set({
-      "event-name": eventName,
-      "event-time": eventTime,
-      "place": place,
-      "ticket-pice": ticketPrice,
-      "event-description": eventDescription
+    await FirebaseFirestore.instance.collection("emergency").doc().set({
+      "name": name,
+      "age": age,
+      "last-place": lastPlace,
+      "contact-number": contactNumber,
+      "description": description,
     });
 
     setState(() {
@@ -54,7 +54,7 @@ class _EventSchedulingState extends State<EventScheduling> {
     return Scaffold(
       body: DecoratedBox(
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 195, 229, 247),
+          color: Color.fromARGB(255, 245, 213, 213),
         ),
         child: SingleChildScrollView(
           child: Form(
@@ -69,28 +69,20 @@ class _EventSchedulingState extends State<EventScheduling> {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(left: 10, top: 6),
+                  padding: EdgeInsets.only(left: 5, top: 6),
                   child: Text(
-                    "Event",
+                    "Emergency\n   Section",
                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(left: 10, top: 1),
+                  padding: EdgeInsets.only(right: 5, top: 20),
                   child: Text(
-                    "Scheduling",
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 2, top: 20),
-                  child: Text(
-                    "Schedule an Event",
+                    "Lost Kid",
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 75, 137, 170),
-                    ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 187, 94, 60)),
                   ),
                 ),
                 Padding(
@@ -105,14 +97,14 @@ class _EventSchedulingState extends State<EventScheduling> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: 'Event Name',
+                          hintText: 'Kid Name',
                         ),
                         onSaved: (value) {
-                          eventName = value!;
+                          name = value!;
                         },
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return "Enter a valid event name";
+                            return "Enter a name";
                           }
                           return null;
                         },
@@ -132,14 +124,14 @@ class _EventSchedulingState extends State<EventScheduling> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: 'Event Time',
+                          hintText: 'Kid Age',
                         ),
                         onSaved: (value) {
-                          eventTime = value!;
+                          age = value!;
                         },
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return "Enter a valid time";
+                            return "Enter a valid age";
                           }
                           return null;
                         },
@@ -159,10 +151,10 @@ class _EventSchedulingState extends State<EventScheduling> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: 'Place',
+                          hintText: 'Last Place Saw',
                         ),
                         onSaved: (value) {
-                          place = value!;
+                          lastPlace = value!;
                         },
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -186,14 +178,14 @@ class _EventSchedulingState extends State<EventScheduling> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: 'Ticket Price',
+                          hintText: 'Parent contact number',
                         ),
                         onSaved: (value) {
-                          ticketPrice = value!;
+                          contactNumber = value!;
                         },
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return "Enter a ticket price";
+                            return "Enter a valid contact number";
                           }
                           return null;
                         },
@@ -213,10 +205,10 @@ class _EventSchedulingState extends State<EventScheduling> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: 'Event Description',
+                          hintText: 'Small Decscription',
                         ),
                         onSaved: (value) {
-                          eventDescription = value!;
+                          description = value!;
                         },
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -239,7 +231,7 @@ class _EventSchedulingState extends State<EventScheduling> {
                       onPressed: _submit,
                       style: TextButton.styleFrom(
                         backgroundColor:
-                            const Color.fromARGB(255, 89, 173, 218),
+                            const Color.fromARGB(255, 246, 122, 113),
                         elevation: 0,
                         padding: const EdgeInsets.all(17),
                         shape: RoundedRectangleBorder(
@@ -250,7 +242,7 @@ class _EventSchedulingState extends State<EventScheduling> {
                         child: Padding(
                           padding: EdgeInsets.all(1),
                           child: Text(
-                            "Schedule Event",
+                            "Submit Details",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -269,7 +261,7 @@ class _EventSchedulingState extends State<EventScheduling> {
                       onPressed: _submit,
                       style: TextButton.styleFrom(
                         backgroundColor:
-                            const Color.fromARGB(255, 89, 173, 218),
+                            const Color.fromARGB(255, 246, 122, 113),
                         elevation: 0,
                         padding: const EdgeInsets.all(17),
                         shape: RoundedRectangleBorder(

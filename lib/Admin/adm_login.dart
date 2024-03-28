@@ -38,29 +38,28 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
     print(_enteredEmail);
     print(_enteredPassword);
 
-    // try {
-    //   await _firebase.signInWithEmailAndPassword(
-    //     email: _enteredEmail,
-    //     password: _enteredPassword,
-    //   );
-    // } on FirebaseAuthException catch (error) {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(
-    //       content: Text(error.message ?? "Signin faild"),
-    //     ),
-    //   );
-    //   setState(() {
-    //     isAuthenticating = false;
-    //   });
-    //   return;
-    // }
+    try {
+      await _firebase.signInWithEmailAndPassword(
+        email: _enteredEmail,
+        password: _enteredPassword,
+      );
+    } on FirebaseAuthException catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.message ?? "Signin faild"),
+        ),
+      );
+      setState(() {
+        isAuthenticating = false;
+      });
+      return;
+    }
     setState(() {
       isAuthenticating = false;
     });
-
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (ctx) => const AdminHomeScreen(),
+        builder: (ctx) => AdminHomeScreen(),
       ),
     );
   }
@@ -187,39 +186,63 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                       ),
                     ),
                     // forgot password text
-
                     const SizedBox(
                       height: 20,
                     ),
-
                     // sign in button
-                    SizedBox(
-                      height: 45,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: _submit,
-                        style: ButtonStyle(
-                          shadowColor: MaterialStateProperty.all(Colors.grey),
-                          backgroundColor: MaterialStateProperty.all(
-                            Colors.blue[400],
+                    if (!isAuthenticating)
+                      SizedBox(
+                        height: 45,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: _submit,
+                          style: ButtonStyle(
+                            shadowColor: MaterialStateProperty.all(Colors.grey),
+                            backgroundColor: MaterialStateProperty.all(
+                              Colors.blue[400],
+                            ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
                           ),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                          child: const Text(
+                            'Log In',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                         ),
-                        child: const Text(
-                          'Log In',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    if (isAuthenticating)
+                      SizedBox(
+                        height: 45,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                            shadowColor: MaterialStateProperty.all(Colors.grey),
+                            backgroundColor: MaterialStateProperty.all(
+                              Colors.blue[400],
+                            ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),

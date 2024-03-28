@@ -1,32 +1,14 @@
 {
   "project_info": {
-    "project_number": "488399517239",
-    "project_id": "test-672ed",
-    "storage_bucket": "test-672ed.appspot.com"
+    "project_number": "455557837986",
+    "firebase_url": "https://wonderworld-e8bac-default-rtdb.firebaseio.com",
+    "project_id": "wonderworld-e8bac",
+    "storage_bucket": "wonderworld-e8bac.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:488399517239:android:93f96e007508e79b05f1b2",
-        "android_client_info": {
-          "package_name": "com.example.test_login2"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA8eZ6NL4EG2Z9J6t8-k6f6WSC79eqzOaY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:488399517239:android:7e89c7fe8a99769d05f1b2",
+        "mobilesdk_app_id": "1:455557837986:android:52ffcff97dbec5a13ed3fb",
         "android_client_info": {
           "package_name": "com.example.wonderworld"
         }
@@ -34,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA8eZ6NL4EG2Z9J6t8-k6f6WSC79eqzOaY"
+          "current_key": "AIzaSyAJjD_PuCNPv82US_6QM5h5Aj58g4q8kJQ"
         }
       ],
       "services": {

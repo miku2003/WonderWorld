@@ -1,19 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class EmergencySection extends StatefulWidget {
-  const EmergencySection({super.key});
+class EventScreen extends StatefulWidget {
+  const EventScreen({super.key});
 
   @override
-  State<EmergencySection> createState() => _EmergencySectionState();
+  State<EventScreen> createState() => _EventScreenState();
 }
 
-class _EmergencySectionState extends State<EmergencySection> {
-  final _form = GlobalKey<FormState>();
+class _EventScreenState extends State<EventScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 245, 213, 213),
+      backgroundColor: const Color.fromARGB(255, 227, 234, 253),
       body: SafeArea(
         child: Column(
           children: [
@@ -31,7 +30,7 @@ class _EmergencySectionState extends State<EmergencySection> {
                 right: 32,
               ),
               child: Text(
-                "Emergency Alerts",
+                "Event Schedule",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 50,
@@ -40,9 +39,8 @@ class _EmergencySectionState extends State<EmergencySection> {
               ),
             ),
             StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("emergency")
-                  .snapshots(),
+              stream:
+                  FirebaseFirestore.instance.collection("events").snapshots(),
               builder: (cxt, chatSnapshot) {
                 if (chatSnapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
@@ -52,7 +50,7 @@ class _EmergencySectionState extends State<EmergencySection> {
 
                 if (!chatSnapshot.hasData || chatSnapshot.data!.docs.isEmpty) {
                   return const Center(
-                    child: Text("No current alerts"),
+                    child: Text("No events yet"),
                   );
                 }
 
@@ -70,6 +68,7 @@ class _EmergencySectionState extends State<EmergencySection> {
                   child: ListView.builder(
                     reverse: false,
                     itemCount: loadedData.length,
+                    padding: const EdgeInsets.only(top: 10.0, bottom: 15.0),
                     itemBuilder: (context, index) {
                       final currentData = loadedData[index].data();
 
@@ -115,15 +114,21 @@ class _EmergencySectionState extends State<EmergencySection> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          currentData["name"],
-                                          style: TextStyle(fontSize: 30),
+                                          currentData["event-name"].length > 12
+                                              ? currentData["event-name"]
+                                                      .substring(0, 12) +
+                                                  '...'
+                                              : currentData["event-name"],
+                                          style: const TextStyle(fontSize: 30),
                                         ),
-                                        Text(currentData["description"]),
+                                        Text(
+                                          currentData["event-description"],
+                                          maxLines: 2,
+                                        ),
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        Text(
-                                            "Parent No: ${currentData["contact-number"]}"),
+                                        Text(currentData["place"]),
                                       ],
                                     ),
                                   )
@@ -131,28 +136,56 @@ class _EmergencySectionState extends State<EmergencySection> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 16),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 16, right: 16),
-                                  child: Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: const Color.fromARGB(
-                                          255, 85, 178, 105),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        currentData["last-place"],
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: Container(
+                                        width: 180,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: const Color.fromARGB(
+                                              255, 85, 178, 105),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "Ticket Price: LRK ${currentData["ticket-pice"]}",
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: Container(
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: const Color.fromARGB(
+                                              255, 85, 178, 105),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "Time: ${currentData["event-time"]}",
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               )
                             ],

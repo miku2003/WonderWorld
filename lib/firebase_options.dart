@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,39 +49,22 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDnJh4nOe-z0FafakRKEKeYg9OoEaT8Eag',
-    appId: '1:488399517239:web:894dcbe001bb723105f1b2',
-    messagingSenderId: '488399517239',
-    projectId: 'test-672ed',
-    authDomain: 'test-672ed.firebaseapp.com',
-    storageBucket: 'test-672ed.appspot.com',
-    measurementId: 'G-B5ERFSVHFC',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA8eZ6NL4EG2Z9J6t8-k6f6WSC79eqzOaY',
-    appId: '1:488399517239:android:7e89c7fe8a99769d05f1b2',
-    messagingSenderId: '488399517239',
-    projectId: 'test-672ed',
-    storageBucket: 'test-672ed.appspot.com',
+    apiKey: 'AIzaSyAJjD_PuCNPv82US_6QM5h5Aj58g4q8kJQ',
+    appId: '1:455557837986:android:52ffcff97dbec5a13ed3fb',
+    messagingSenderId: '455557837986',
+    projectId: 'wonderworld-e8bac',
+    databaseURL: 'https://wonderworld-e8bac-default-rtdb.firebaseio.com',
+    storageBucket: 'wonderworld-e8bac.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC08ndQwCdSwRp37PNQDbrUGdnOItybq9I',
-    appId: '1:488399517239:ios:5551e85097dd5d6d05f1b2',
-    messagingSenderId: '488399517239',
-    projectId: 'test-672ed',
-    storageBucket: 'test-672ed.appspot.com',
+    apiKey: 'AIzaSyDcWDUue4lcXBabsStb3UM6ubIfo9-ndKw',
+    appId: '1:455557837986:ios:4d9a43095764ac5d3ed3fb',
+    messagingSenderId: '455557837986',
+    projectId: 'wonderworld-e8bac',
+    databaseURL: 'https://wonderworld-e8bac-default-rtdb.firebaseio.com',
+    storageBucket: 'wonderworld-e8bac.appspot.com',
     iosBundleId: 'com.example.wonderworld',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC08ndQwCdSwRp37PNQDbrUGdnOItybq9I',
-    appId: '1:488399517239:ios:b773124f38cae96e05f1b2',
-    messagingSenderId: '488399517239',
-    projectId: 'test-672ed',
-    storageBucket: 'test-672ed.appspot.com',
-    iosBundleId: 'com.example.wonderworld.RunnerTests',
   );
 }
